@@ -26,28 +26,28 @@ binance.websockets.candlesticks([ticker], timeFrame, (candlesticks) => {
   console.log("volume: "+ volume);
   console.log("isFinal: "+ isFinal);
   
-  if (isFinal == true){
-	  count++;
-	  highs.push(parseFloat(high));
-      closes.push(parseFloat(close));
-      lows.push(parseFloat(low));
+  if (isFinal == true){	
+	count++;
+	highs.push(parseFloat(high));
+     	closes.push(parseFloat(close));
+     	lows.push(parseFloat(low));
   }
  
   if (closes[count] > highs[count - 3]){
-		if (hasSold == true){
-		    console.log("buying");
-			binance.marketBuy(ticker, quantity);
-			hasBought = true;
-			hasSold = false;
-		}
+	if (hasSold == true){
+		console.log("buying");
+		binance.marketBuy(ticker, quantity);
+		hasBought = true;
+		hasSold = false;
+	}
   }
   
   if (closes[count] < lows[count - 3]){
-	  if (hasBought == true){
-	       console.log("selling");
-	       binance.marketSell(ticker, quantity);
-		   hasSold = true;
-		   hasBought = false;
-		}
+	if (hasBought == true){
+	  	console.log("selling");
+	  	binance.marketSell(ticker, quantity);
+		hasSold = true;
+		hasBought = false;
+	}
   }
 });
